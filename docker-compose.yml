@@ -1,0 +1,78 @@
+version: "3.9"
+services:
+  api_server:
+    container_name: api_server
+    build: builds/api_server/.
+    image: api_image
+    ports:
+      - "5000:5000/tcp"
+    volumes:
+      - ~/volumes/api:/opt
+    environment:
+      - database=swgemu
+    networks:
+      swgnet:
+        ipv4_address: 192.168.88.2
+  database:
+    container_name: database_server
+    build: builds/database/.
+    image: database_image
+    volumes:
+      - ~/volumes/database:/opt
+    environment:
+      - database=swgemu
+    networks:
+      swgnet:
+        ipv4_address: 192.168.88.3
+  web:
+    container_name: web_server
+    build: builds/web/.
+    image: web_image
+    ports:
+      - "80:80/tcp"
+      - "443:443/tcp"
+    volumes:
+      - ~/volumes/web:/var/www/html
+    networks:
+      swgnet:
+        ipv4_address: 192.168.88.4
+  login:
+    container_name: login_server
+    build: builds/login/.
+    image: login_image
+    ports:
+      - "44453:44453/udp"
+    volumes:
+      - ~/volumes/login:/opt
+    security_opt:
+      - seccomp:unconfined
+    cap_add:
+      - SYS_PTRACE
+    networks:
+      swgnet:
+        ipv4_address: 192.168.88.5
+  zone:
+    container_name: zone_server
+    build: builds/zone/.
+    image: zone_image
+    ports:
+      - "44455:44455/tcp"
+      - "44462:44462/udp"
+      - "44463:44463/udp"
+    volumes:
+      - ~/volumes/zone:/opt
+    security_opt:
+      - seccomp:unconfined
+    cap_add:
+      - SYS_PTRACE
+    networks:
+      swgnet:
+        ipv4_address: 192.168.88.6
+
+networks:
+  swgnet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.88.0/24
+          gateway: 192.168.88.1
