@@ -1,5 +1,7 @@
 FROM debian:buster
 
+ENTRYPOINT ["tail", "-f", "/dev/null"]
+
 RUN echo 'APT::Install-Recommends "0";\nAPT::Install-Suggests "0";' > /etc/apt/apt.conf.d/01norecommends
 
 RUN \
@@ -11,19 +13,14 @@ libmariadbclient-dev-compat \
 liblua5.3-dev libdb5.3-dev \
 libssl-dev cmake \
 git default-jre \
-curl wget gdb supervisor \
+curl wget gdb \
 tmux python vim screen \
-cron ssh bash-completion \
-mariadb-client
+cron bash-completion
 
 COPY build.sh /build.sh
-COPY zone_init.sh /zone_init.sh
 COPY start_core3.sh /start_core3.sh
 
 RUN mkdir /opt/cron
 COPY gh_push_public.py /opt/cron/gh_push_public.py
 COPY cron /var/spool/cron/crontabs/root
 
-COPY supervisord.conf /etc/supervisor/supervisord.conf
-COPY supervisor.sh /supervisor.sh
-CMD ["./supervisor.sh"]
