@@ -8,8 +8,6 @@ services:
       - "5000:5000/tcp"
     volumes:
       - ~/volumes/api:/opt
-    environment:
-      - database=swgemu
     networks:
       swgnet:
         ipv4_address: 192.168.88.2
@@ -19,8 +17,6 @@ services:
     image: database_image
     volumes:
       - ~/volumes/database:/opt
-    environment:
-      - database=swgemu
     networks:
       swgnet:
         ipv4_address: 192.168.88.3

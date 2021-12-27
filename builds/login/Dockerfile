@@ -1,7 +1,5 @@
 FROM debian:buster
 
-ENTRYPOINT ["tail", "-f", "/dev/null"]
-
 RUN echo 'APT::Install-Recommends "0";\nAPT::Install-Suggests "0";' > /etc/apt/apt.conf.d/01norecommends
 
 RUN \
@@ -13,10 +11,14 @@ libmariadbclient-dev-compat \
 liblua5.3-dev libdb5.3-dev \
 libssl-dev cmake \
 git default-jre \
-curl wget gdb \
-tmux python vim \
-cron ssh bash-completion && \
+curl wget gdb supervisor \
+tmux python vim screen \
+cron ssh bash-completion
 
-RUN \
-mkdir -p /home/swg/workspace/tre && \
-#cd /home/swg/workspace/Core3/MMOCoreORB/ && make -j$(nproc)
+COPY build.sh /build.sh
+COPY login_init.sh /login_init.sh
+COPY start_core3.sh /start_core3.sh
+
+COPY supervisord.conf /etc/supervisor/supervisord.conf
+COPY supervisor.sh /supervisor.sh
+CMD ["./supervisor.sh"]

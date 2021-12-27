@@ -13,9 +13,12 @@ mariadb-server \
 supervisor procps \
 apt-transport-https
 
+RUN sed -i "s/127.0.0.1/192.168.88.3/g" /etc/mysql/mariadb.conf.d/50-server.cnf
+
 RUN mkdir /run/mysqld
 
 COPY supervisord.conf /etc/supervisor/supervisord.conf
+COPY import_db.sh /import_db.sh
 
 RUN chown -R mysql: /var/run/mysqld
 

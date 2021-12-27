@@ -17,8 +17,8 @@ supervisor apt-transport-https \
 dotnet-sdk-6.0 aspnetcore-runtime-6.0 \
 procps mariadb-client
 
+COPY api_init.sh /api_init.sh
 COPY supervisord.conf /etc/supervisor/supervisord.conf
-
 COPY supervisor.sh /supervisor.sh
 CMD ["./supervisor.sh"]
 
