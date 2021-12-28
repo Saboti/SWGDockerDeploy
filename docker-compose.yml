@@ -29,7 +29,7 @@ services:
       - "443:443/tcp"
     volumes:
       - ~/volumes/web_conf:/etc/nginx/conf.d
-      - ~/volumes/web:/var/www/html
+      - ~/volumes/web:/var/www/fileserver
     networks:
       swgnet:
         ipv4_address: 192.168.88.4
