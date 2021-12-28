@@ -12,6 +12,7 @@ if [ ! -f /opt/.firstrun ]; then
 	login_conf=~/volumes/login/Core3/MMOCoreORB/bin/conf/config.lua
 	zone_conf=~/volumes/zone/Core3/MMOCoreORB/bin/conf/config.lua
 	fileserv_url=example.domain.tld
+	external_ip=CHANGE_ME
 
 	docker-compose up -d
 
@@ -81,7 +82,7 @@ if [ ! -f /opt/.firstrun ]; then
 	docker exec -it database_server mysql -e "create user 'swgemu'@'192.168.88.6' identified by '$db_password'"
 	docker exec -it database_server mysql -e "grant all on swgemu.* to 'swgemu'@'192.168.88.6'"
 
-	docker exec -it database_server /bin/bash /import_db.sh $(hostname -I | cut -d' ' -f1)
+	docker exec -it database_server /bin/bash /import_db.sh $external_ip
 
 	docker stop api_server
 	docker start api_server
