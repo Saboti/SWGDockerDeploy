@@ -28,6 +28,7 @@ services:
       - "80:80/tcp"
       - "443:443/tcp"
     volumes:
+      - ~/volumes/web_conf:/etc/nginx/conf.d
       - ~/volumes/web:/var/www/html
     networks:
       swgnet:

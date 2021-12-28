@@ -17,6 +17,8 @@ nginx supervisor procps \
 apt-transport-https \
 mariadb-client
 
+RUN mkdir /var/www/fileserver
+
 COPY supervisord.conf /etc/supervisor/supervisord.conf
 
 COPY supervisor.sh /supervisor.sh

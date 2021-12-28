@@ -11,6 +11,7 @@ if [ ! -f /opt/.firstrun ]; then
 	api_repo=https://github.com/SWGApps/LauncherAPI.git 
 	login_conf=~/volumes/login/Core3/MMOCoreORB/bin/conf/config.lua
 	zone_conf=~/volumes/zone/Core3/MMOCoreORB/bin/conf/config.lua
+	fileserv_url=example.domain.tld
 
 	docker-compose up -d
 
@@ -63,6 +64,9 @@ if [ ! -f /opt/.firstrun ]; then
 	sudo sed -i "s/MakePing = 1/MakePing = 0/g" $login_conf
 	sudo sed -i "s/MakeStatus = 1/MakeStatus = 0/g" $login_conf
 
+	sudo cp builds/web/fileserv.conf ~/volumes/web_conf/
+	sudo sed -i "s/example.domain.com/$fileserv_url/g" ~/volumes/web_conf/fileserv.conf
+
 	sudo cp ~/volumes/zone/Core3/MMOCoreORB/sql/swgemu.sql ~/volumes/database/
 	sudo cp ~/volumes/api/api_server/sql/swgemu.sql ~/volumes/database/swgemu_append.sql
 
@@ -77,10 +81,12 @@ if [ ! -f /opt/.firstrun ]; then
 	docker exec -it database_server mysql -e "create user 'swgemu'@'192.168.88.6' identified by '$db_password'"
 	docker exec -it database_server mysql -e "grant all on swgemu.* to 'swgemu'@'192.168.88.6'"
 
-	docker exec -it database_server /bin/bash /import_db.sh
+	docker exec -it database_server /bin/bash /import_db.sh $(hostname -I | cut -d' ' -f1)
 
 	docker stop api_server
 	docker start api_server
+	docker stop web_server
+	docker start web_server
 
 	echo ""
 	echo "Keep this information for your records:"
