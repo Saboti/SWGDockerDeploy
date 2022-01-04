@@ -26,5 +26,6 @@ db_properties=$3
 
 sed -i "s/swgemus3cr37!/$dbsecret/g" $db_properties
 sed -i "s/123456/$dbpassword/g" $db_properties
+sed -i "s/localhost/192.168.88.3/g" $db_properties
 
 rm /api_init.sh

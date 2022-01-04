@@ -7,12 +7,15 @@ if [ ! -f /opt/.firstrun ]; then
 	    exit 1
 	fi
 
+	# Change
 	core3_repo=git@gitlab.com:swg-legacy/core3/testcenter/core3-testcenter.git
 	api_repo=https://github.com/SWGApps/LauncherAPI.git 
+	fileserv_url=example.domain.com
+	external_ip=CHANGEME
+
+	# Do not change
 	login_conf=~/volumes/login/Core3/MMOCoreORB/bin/conf/config.lua
 	zone_conf=~/volumes/zone/Core3/MMOCoreORB/bin/conf/config.lua
-	fileserv_url=example.domain.tld
-	external_ip=CHANGE_ME
 
 	docker-compose up -d
 
