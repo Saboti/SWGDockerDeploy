@@ -15,11 +15,14 @@ apt-get install -y git \
 vim bash-completion \
 nginx supervisor procps \
 apt-transport-https \
-mariadb-client
+mariadb-client python3-venv python3-pip
 
 RUN mkdir /var/www/fileserver
+RUN mkdir /var/www/fileserver/status
 
 COPY supervisord.conf /etc/supervisor/supervisord.conf
+COPY main.py /var/www/fileserver/main.py
+COPY start_status.sh /start_status.sh
 
 COPY supervisor.sh /supervisor.sh
 CMD ["./supervisor.sh"]
