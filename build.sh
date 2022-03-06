@@ -8,7 +8,7 @@ if [ ! -f /opt/.firstrun ]; then
 	fi
 
 	# Change
-	core3_repo=git@gitlab.com:swg-legacy/core3/testcenter/core3-testcenter.git
+	core3_repo=git@github.com:swgemu/Core3.git
 	api_repo=https://github.com/SWGApps/LauncherAPI.git 
 	fileserv_url=example.domain.com
 	external_ip=CHANGEME
