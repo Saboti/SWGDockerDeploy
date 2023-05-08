@@ -15,7 +15,8 @@ libssl-dev cmake \
 git default-jre \
 curl wget gdb \
 tmux python vim screen \
-cron bash-completion
+cron bash-completion \
+libboost-system-dev libboost-thread-dev libboost-program-options-dev libboost-test-dev
 
 COPY build.sh /build.sh
 COPY start_core3.sh /start_core3.sh

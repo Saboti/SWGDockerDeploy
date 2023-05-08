@@ -1,7 +1,7 @@
 import os
 
 home = os.path.expanduser('~')
-filename = home + '/volumes/zone/Core3/MMOCoreORB/bin/conf/config.lua'
+filename = home + '/volumes/login/Core3/MMOCoreORB/bin/conf/config.lua'
 
 def get_tre_list():
     with open('scripts/tre_list.lua') as f:

@@ -19,3 +19,4 @@ sudo rm -rf ~/volumes/database/*
 sudo rm -rf ~/volumes/login/*
 sudo rm -rf ~/volumes/zone/*
 sudo rm /opt/.firstrun
+sudo docker builder prune

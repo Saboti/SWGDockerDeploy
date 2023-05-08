@@ -1,0 +1,12 @@
+**.vscode/
+
+tre/*
+!tre/.gitkeep
+log/*
+!log/.gitkeep
+mysql/*
+!mysql/.gitkeep
+databases/*
+!databases/.gitkeep
+navmeshes/*
+!navmeshes/.gitkeep

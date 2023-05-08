@@ -11,6 +11,7 @@ services:
     networks:
       swgnet:
         ipv4_address: 192.168.88.2
+
   database:
     container_name: database_server
     build: builds/database/.
@@ -25,14 +26,15 @@ services:
     build: builds/web/.
     image: web_image
     ports:
-      - "80:80/tcp"
-      - "443:443/tcp"
+      - "8080:80/tcp"
+      - "8443:443/tcp"
     volumes:
       - ~/volumes/web_conf:/etc/nginx/conf.d
       - ~/volumes/web:/var/www/fileserver
     networks:
       swgnet:
         ipv4_address: 192.168.88.4
+
   login:
     container_name: login_server
     build: builds/login/.
@@ -48,6 +50,7 @@ services:
     networks:
       swgnet:
         ipv4_address: 192.168.88.5
+
   zone:
     container_name: zone_server
     build: builds/zone/.
